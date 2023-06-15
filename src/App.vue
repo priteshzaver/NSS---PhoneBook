@@ -15,7 +15,7 @@ const contacts = ref(sampleData)
         <ContactForm />
       </div>
       <div class="column">
-        <ContactList />
+        <ContactList :contacts="contacts"/>
       </div>
     </div>
   </div>
