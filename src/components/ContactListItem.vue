@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+const props = defineProps(['contact'])
+</script>
 
 <template>
-    <div>ContactListItem</div>
+  <div>
+    {{ props.contact.firstName }}
+  </div>
 </template>
 
 <style scoped></style>
