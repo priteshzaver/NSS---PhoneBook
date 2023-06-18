@@ -5,6 +5,13 @@ import ContactList from './components/ContactList.vue'
 import sampleData from './sampleData'
 
 const contacts = ref(sampleData)
+
+const addContact = (contact) => {
+  contacts.value = [...contacts.value, contact]
+}
+const removeContact = (email) => {
+  contacts.value = contacts.value.filter((contact) => contact.email !== email)
+}
 </script>
 
 <template>
@@ -12,10 +19,10 @@ const contacts = ref(sampleData)
   <div class="container px-4">
     <div class="columns">
       <div class="column">
-        <ContactForm />
+        <ContactForm @submit="addContact" />
       </div>
       <div class="column">
-        <ContactList :contacts="contacts"/>
+        <ContactList :contacts="contacts" @remove="removeContact" />
       </div>
     </div>
   </div>

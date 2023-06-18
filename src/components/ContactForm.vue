@@ -1,19 +1,27 @@
 <script setup>
 import { ref } from 'vue'
 
+const emit = defineEmits(['submit'])
 const form = ref({
   firstName: '',
   lastName: '',
   email: '',
   phoneNumber: ''
 })
+
+const handleSubmit = () => {
+  emit('submit', form.value)
+}
 </script>
 
 <template>
   <div class="panel is-success">
     <div class="panel-heading">Add Contact</div>
     <div class="panel-block">
-      <form class="is-flex is-flex-direction-column is-flex-grow-1 mt-3">
+      <form
+        @submit.prevent="handleSubmit"
+        class="is-flex is-flex-direction-column is-flex-grow-1 mt-3"
+      >
         <div class="field">
           <label class="label">First Name</label>
           <div class="control">
@@ -43,6 +51,7 @@ const form = ref({
             />
           </div>
         </div>
+        <button type="submit" class="button is-link is-info">Add Contact</button>
       </form>
     </div>
   </div>
