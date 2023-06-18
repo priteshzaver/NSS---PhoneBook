@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 const props = defineProps(['contact'])
+const emit = defineEmits(['remove'])
 
 const initials = computed(() => {
   const firstInitial = props.contact.firstName[0]
@@ -12,6 +13,10 @@ const initials = computed(() => {
 const fullName = computed(() => {
   return `${props.contact.firstName} ${props.contact.lastName}`
 })
+
+const handleRemove = (email) => {
+  emit('remove', email)
+}
 </script>
 
 <template>
@@ -30,7 +35,9 @@ const fullName = computed(() => {
         <span class="has-text-weight-semibold">Phone:</span> {{ props.contact.phoneNumber }}
       </div>
     </div>
-    <button class="button is-danger is-light is-small">Remove</button>
+    <button @click="handleRemove(props.contact.email)" class="button is-danger is-light is-small">
+      Remove
+    </button>
   </div>
 </template>
 
