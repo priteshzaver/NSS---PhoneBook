@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from '@vue/reactivity'
 import { ref } from 'vue'
 
 const emit = defineEmits(['submit'])
@@ -12,6 +13,10 @@ const form = ref({
 const handleSubmit = () => {
   emit('submit', form.value)
 }
+
+const formIsValid = computed(() => {
+  return Boolean(form.value.firstName && form.value.phoneNumber)
+})
 </script>
 
 <template>
@@ -25,7 +30,14 @@ const handleSubmit = () => {
         <div class="field">
           <label class="label">First Name</label>
           <div class="control">
-            <input v-model="form.firstName" type="text" class="input" placeholder="First Name" />
+            <input
+              v-model="form.firstName"
+              type="text"
+              class="input"
+              :class="{ 'is-danger': !form.firstName }"
+              placeholder="First Name"
+            />
+            <p v-if="!form.firstName" class="help is-danger">First Name is required</p>
           </div>
         </div>
         <div class="field">
@@ -47,11 +59,19 @@ const handleSubmit = () => {
               v-model="form.phoneNumber"
               type="text"
               class="input"
+              :class="{ 'is-danger': !form.phoneNumber }"
               placeholder="Phone Number"
             />
+            <p v-if="!form.firstName" class="help is-danger">Phone number is required</p>
           </div>
         </div>
-        <button type="submit" class="button is-link is-info">Add Contact</button>
+        <button
+          :disabled="!formIsValid"
+          type="submit"
+          class="button is-link is-info is-align-self-flex-start mt-3"
+        >
+          Add Contact
+        </button>
       </form>
     </div>
   </div>
