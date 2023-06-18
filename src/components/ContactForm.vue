@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from '@vue/reactivity'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { vMaska } from 'maska'
 
 const emit = defineEmits(['submit'])
 const form = ref({
@@ -12,6 +12,12 @@ const form = ref({
 
 const handleSubmit = () => {
   emit('submit', form.value)
+  form.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: ''
+  }
 }
 
 const formIsValid = computed(() => {
@@ -57,6 +63,8 @@ const formIsValid = computed(() => {
           <div class="control">
             <input
               v-model="form.phoneNumber"
+              v-maska
+              data-maska="(###)-###-####"
               type="text"
               class="input"
               :class="{ 'is-danger': !form.phoneNumber }"

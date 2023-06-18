@@ -2,15 +2,20 @@
 import { ref } from 'vue'
 import ContactForm from './components/ContactForm.vue'
 import ContactList from './components/ContactList.vue'
-import sampleData from './sampleData'
 
-const contacts = ref(sampleData)
+const contacts = ref(JSON.parse(localStorage.getItem('contacts')))
+
+const setContactsInLocalStorage = () => {
+  localStorage.setItem('contacts', JSON.stringify(contacts.value))
+}
 
 const addContact = (contact) => {
   contacts.value = [...contacts.value, contact]
+  setContactsInLocalStorage()
 }
 const removeContact = (email) => {
   contacts.value = contacts.value.filter((contact) => contact.email !== email)
+  setContactsInLocalStorage()
 }
 </script>
 
